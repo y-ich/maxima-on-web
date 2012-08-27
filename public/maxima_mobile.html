@@ -1,0 +1,174 @@
+<!--
+ * maxima_mobile.html
+ * Maxima Web Frontend
+ * author: ICHIKAWA, Yuji
+ * Copyright (C) 2011 ICHIKAWA, Yuji
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>Maxima on Web</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="apple-touch-icon" href="expressions.png" />
+<link rel="stylesheet" href="maxima_mobile.css" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+<script type="text/javascript" src="maxima_mobile.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]] } });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<meta http-equiv="X-UA-Compatible" CONTENT="IE=EmulateIE7" />
+</head>
+<body>
+  <div data-role="page" id="top" data-theme="b">
+    <div data-role="header">
+      <h1>Maxima on Web</h1>
+    </div>
+    <div data-role="content" style="height: 100%;">
+      <div align="right">
+	<a href="#transform">Transforming</a>
+	<a href="#program">Programming</a>
+	<a href="#manual">Reference Manual</a>
+      </div>
+      <form action="javascript:submit()" type="post">
+	<div data-role="fieldcontain">
+	  <label for="command">Maxima One-Liner:</label>
+	  <input type="search" id="command" value="" autocapitalize="off" />
+	</div>
+      </form>
+<!--      <div id="keyboard" style="position: absolute; width: 98%; bottom: 20px;">-->
+      <div id="keyboard">
+	<table id="special" style="float: left; " cellpadding="0" cellspacing="0">
+	  <tr><td>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="caretHead()">head</div>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="caretLeft()">&larr;</div>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="caretRight()">&rarr;</div>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="caretEnd()">end</div>
+	  </td></tr>
+	  <tr><td>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">(</div>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">)</div>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">[</div>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">]</div>
+	  </td></tr>
+	  <tr><td>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput('%pi')">$\pi$</div>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput('%e')">$e$</div>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput('%i')">$i$</div>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput('inf')">$\infty$</div>
+	  </td></tr>
+	  <tr><td>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput('factor(')">factor</div>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput('expand(')">expand</div>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput('integrate(')">$\int$</div>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput('diff(')">$\partial$</div>
+	  </td></tr>
+	  <tr><td>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput('plot2d(')">plot2d</div>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput('plot3d(')">plot3d</div>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput('contour_plot(')">contour</div>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">^</div>
+	  </td></tr>
+	</table>
+	<table style="float: right; " cellpadding="0" cellspacing="0">
+	  <tr><td>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">*</div>
+	  </td></tr>
+	  <tr><td>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">-</div>
+	  </td></tr>
+	  <tr><td>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">+</div>
+	  </td></tr>
+	  <tr><td>
+	      <div class="button ope eval" onmousedown="event.preventDefault()" onclick="submit()">eval</div>
+	  </td></tr>
+	</table>
+	<table style="float: right; " cellpadding="0" cellspacing="0">
+	  <tr><td>
+<!-- onmousedownでpreventDefault()を実行すると、ソフトキーボードがぴくぴく閉じようとしなくなる -->
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="clearInput()">C</div>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">=</div>
+	      <div class="button ope" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">/</div>
+	  </td></tr><tr><td>
+	      <div class="button number" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">7</div>
+	      <div class="button number" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">8</div>
+	      <div class="button number" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">9</div>
+	  </td></tr><tr><td>
+	      <div class="button number" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">4</div>
+	      <div class="button number" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">5</div>
+	      <div class="button number" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">6</div>
+	  </td></tr><tr><td>
+	      <div class="button number" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">1</div>
+	      <div class="button number" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">2</div>
+	      <div class="button number" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">3</div>
+	  </td></tr><tr><td>
+	      <div class="button number" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">0</div>
+	      <div class="button number" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">.</div>
+	      <div class="button number" onmousedown="event.preventDefault()" onclick="stringInput(this.innerHTML)">,</div>
+	  </td></tr>
+	</table>
+      </div>
+      <div id="result" style="position: absolute; top: 400px;"></div>
+    </div>
+    <div data-role="footer" data-position="fixed">
+      <h4>&copy; 2011 ICHIKAWA, Yuji</h4>
+    </div>
+  </div>
+  <div data-role="page" id="transform" data-theme="b">
+    <div data-role="header">
+      <h2>Transforming Expression</h2>
+      <a href="#top" class="ui-btn-right" data-icon="home" data-iconpos="notext" 
+         data-direction="reverse">Home</a>
+    </div>
+  </div>
+  <div data-role="footer" data-position="fixed">
+      <h4>&copy; 2011 ICHIKAWA, Yuji</h4>
+    </div>
+  <div data-role="page" id="program" data-theme="b">
+    <div data-role="header">
+      <h2>Programming in Maxima</h2>
+      <a href="#top" class="ui-btn-right" data-icon="home" data-iconpos="notext" 
+         data-direction="reverse">Home</a>
+    </div>
+  </div>
+  <div data-role="footer" data-position="fixed">
+      <h4>&copy; 2011 ICHIKAWA, Yuji</h4>
+    </div>
+  <div data-role="page" id="manual" data-theme="b">
+    <div data-role="header">
+      <h2>Maxima Reference Manual</h2>
+      <a href="#top" class="ui-btn-right" data-icon="home" data-iconpos="notext" 
+         data-direction="reverse">Home</a>
+    </div>
+    <iframe width="100%" height="100%" src="http://maxima.sourceforge.net/docs/manual/en/maxima.html">
+      Your browser does not support iframe.
+    </iframe>
+  </div>
+  <div data-role="footer" data-position="fixed">
+      <h4>&copy; 2011 ICHIKAWA, Yuji</h4>
+    </div>
+  <div data-role="page" id="about" data-theme="b">
+    <div data-role="header">
+      <h1>Maxima on Web</h1>
+      <a href="#top" class="ui-btn-right" data-icon="home" data-iconpos="notext" 
+         data-direction="reverse">Home</a>
+    </div>
+    <div data-role="content">
+      <h2>About Maxima on Web</h2>
+      <p></p>
+      <h2>About Author</h2>
+      <p></p>
+    </div>
+    <div data-role="footer" data-position="fixed">
+      <h4>&copy; 2011 ICHIKAWA, Yuji</h4>
+    </div>
+  </div>
+  <div data-role="page" id="contact">
+  </div>
+</body>
+</html>

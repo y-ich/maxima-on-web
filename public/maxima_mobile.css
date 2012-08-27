@@ -1,0 +1,63 @@
+/*
+ * maxima_mobile.html
+ * Maxima Web Frontend
+ * author: ICHIKAWA, Yuji
+ * Copyright (C) 2011 ICHIKAWA, Yuji
+ */
+
+ #keyboard {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 24px;
+}
+
+#special {
+  font-size: 18px;
+}
+
+.numbers {
+  width: 234px;
+  height: 220px;
+  x-border: 1px solid blue;
+  margin-left: 8px;
+  float: left;
+}
+
+.right {
+  width: 68px;
+  height: 200px;
+  x-border: 1px solid red;
+  float: left;
+}
+
+.button {
+  padding: 4px;
+  width: 60px;
+  height: 30px;
+  background: grey;
+  color: white;
+  border: 1px solid black;
+  margin-right: 8px;
+  margin-bottom: 12px;
+  float: left;
+  text-align: center;
+  -moz-border-radius: 8px;  
+  -webkit-border-radius: 8px;  
+}
+
+.pressed {
+  border: 5px solid white;
+  padding: 0px;
+}
+
+.number {
+  background: black;
+}
+
+.ope {
+  background: #334455;
+}
+
+.eval {
+  padding-top: 56px;
+  background: orange;
+}
