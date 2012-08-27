@@ -10,16 +10,11 @@ It requires Maxima(http://maxima.sourceforge.net) and Gnuplot(included by Maxima
 ##How to set up for your environment
 
 1. change a search path for Gnuplot in the file "maxima.rb"
-
-     ENV['PATH'] = '/Applications/Gnuplot.app/Contents/Resources/bin:' + ENV['PATH'] # add search path for Gnuplot
-
-/Application/Gnuplot.app/Contents/Resources/bin is just for my environment. Change it for your environment.
-
+    ENV['PATH'] = '/Applications/Gnuplot.app/Contents/Resources/bin:' + ENV['PATH'] # add search path for Gnuplot
+    /Application/Gnuplot.app/Contents/Resources/bin is just for my environment. Change it for your environment.
 2. change an absolute path for Maxima in the file "maxima.rb"
-
-     MAXIMA_PATH = '/Applications/Maxima.app/Contents/Resources/maxima.sh' # set absolute path of Maxima
-
-/Applications/Maxima.app/Contents/Resources/maxima.sh is just for my environment. Change it for your environment.
+    MAXIMA_PATH = '/Applications/Maxima.app/Contents/Resources/maxima.sh' # set absolute path of Maxima
+    /Applications/Maxima.app/Contents/Resources/maxima.sh is just for my environment. Change it for your environment.
 
 ## How to start web server
 
