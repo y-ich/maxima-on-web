@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
 #
-# Maximaインターフェイス
+# Ruby wrapper for Maxima 
 #
-# Authors:: 市川雄二
+# Authors:: ICHIKAWA, Yuji
 # Version:: 0.1
-# Copyright:: Copyright (C) 2011 ICHIKAWA, Yuji. All rights reserved.
+# Copyright:: Copyright (C) 2011-2012 ICHIKAWA, Yuji (New 3 Rs). All rights reserved.
 
 
-# マルチクライアント対応Maximaクラスライブラリ
+ENV['PATH'] = '/Applications/Gnuplot.app/Contents/Resources/bin:' + ENV['PATH'] # add search path for Gnuplot
+
+# Maxima class library for multi clients
 class Maxima
   BUFFER_SIZE = 1024
-  MAXIMA_PATH = '/Applications/Maxima.app/Contents/Resources/maxima.sh'
-  IMAGE_PATH = '/Users/yuji/Projects/maxima-on-web/public/images/'
+  MAXIMA_PATH = '/Applications/Maxima.app/Contents/Resources/maxima.sh' # set absolute path of Maxima
+  IMAGE_PATH = 'public/images/'
   SETTINGS = ["set_plot_option([plot_format, gnuplot])",
               "set_plot_option([gnuplot_term,\"png size 480, 360\"])"]
   @@sessions = {}

@@ -9,12 +9,6 @@ require 'rubygems'
 require 'sinatra'
 require './maxima'
 
-CGI_FILE = '/Users/yuji/Projects/maxima-on-web/public/cgi-bin/maxima.rb'
-`mv #{CGI_FILE} #{CGI_FILE + '.tmp'}` if File.exist?(CGI_FILE)
-ENV['PATH'] = '/Applications/Gnuplot.app/Contents/Resources/bin:' + ENV['PATH'] # gnuplot用パスを追加
-
-
-# set :public, '/Users/yuji/Sites'
 enable :sessions
 
 post '/cgi-bin/maxima.rb' do
@@ -37,7 +31,6 @@ module Sinatra
     def Application.quit!(server, handler_name)
       super(server, handler_name)
       Maxima.cleanup
-      `mv #{CGI_FILE + '.tmp'} #{CGI_FILE}` if File.exist?(CGI_FILE + '.tmp')
     end
   end
 end
