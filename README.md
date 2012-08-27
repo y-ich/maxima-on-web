@@ -1,7 +1,4 @@
 #Maxima on Web
-by ICHIKAWA, Yuji
-
-Copyright (C) 2011-2012 ICHIKAWA, Yuji (New 3 Rs)
 
 "Maxima on Web" is a server script by Sinatra(Ruby) with HTML client UI on MacOS.
 It requires Maxima(http://maxima.sourceforge.net) and Gnuplot(included by Maxima distribution), and Sinatra(http://www.sinatrarb.com).
@@ -28,3 +25,5 @@ It requires Maxima(http://maxima.sourceforge.net) and Gnuplot(included by Maxima
     ruby maxima_server.rb
 
 Enjoy!
+
+Copyright (C) 2011-2012 ICHIKAWA, Yuji (New 3 Rs) All rights reserved.
